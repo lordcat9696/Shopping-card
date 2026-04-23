@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Maison Verde — Sustainable everyday essentials</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --color-bg: #F4EEDE;
+    --color-surface: #FFFFFF;
+    --color-primary: #1F3D2F;
+    --color-primary-dark: #162C21;
+    --color-accent: #9DC88D;
+    --color-accent-bright: #C5E17A;
+    --color-text: #1A1A1A;
+    --color-muted: #6B6B6B;
+    --color-border: #E3DCC9;
+    --font-display: 'Archivo', system-ui, sans-serif;
+    --font-body: 'Inter', system-ui, sans-serif;
+    --container: 1280px;
+    --pad-x: clamp(20px, 4vw, 56px);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--color-bg); color: var(--color-text); font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+  /* subtle film grain — applies above everything for that photographic print feel */
+  body::before {
+    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 999;
+    opacity: 0.35; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+
+  .container { max-width: var(--container); margin: 0 auto; padding: 0 var(--pad-x); }
+
+  /* ---------- Announcement ---------- */
+  .announce {
+    background: var(--color-primary);
+    color: var(--color-bg);
+    text-align: center;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 12px 16px;
+  }
+  .announce span { opacity: 0.75; margin: 0 10px; }
+
+  /* ---------- Header ---------- */
+  .site-header {
+    position: sticky; top: 0; z-index: 20;
+    background: var(--color-bg);
+    border-bottom: 1px solid var(--color-border);
+  }
+  .nav {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 24px;
+    padding: 18px 0;
+  }
+  .nav-left, .nav-right {
+    display: flex; align-items: center; gap: 28px;
+    font-size: 13px; font-weight: 500; letter-spacing: 0.04em;
+  }
+  .nav-right { justify-content: flex-end; }
+  .nav a.nav-link { padding: 6px 0; position: relative; }
+  .nav a.nav-link:hover { color: var(--color-primary); }
+  .logo {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 22px;
+    letter-spacing: 0.02em;
+    color: var(--color-primary);
+    text-transform: uppercase;
+  }
+  .logo sup { font-size: 10px; font-weight: 700; vertical-align: super; opacity: 0.7; }
+  .icon-btn { display: inline-flex; align-items: center; gap: 6px; }
+  .icon-btn svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.6; }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    position: relative;
+    background: var(--color-primary);
+    color: var(--color-bg);
+    overflow: hidden;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 560px;
+  }
+  .hero-copy {
+    padding: clamp(48px, 7vw, 96px) var(--pad-x);
+    display: flex; flex-direction: column; justify-content: center;
+    gap: 24px;
+  }
+  .eyebrow {
+    font-family: var(--font-display);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--color-accent-bright);
+  }
+  .hero-title {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(56px, 9vw, 128px);
+    line-height: 0.92;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+  }
+  .hero-title em { font-style: normal; color: var(--color-accent-bright); }
+  .hero-sub { font-size: 16px; max-width: 440px; color: rgba(244, 238, 222, 0.82); line-height: 1.55; }
+  .hero-cta { display: flex; gap: 14px; margin-top: 8px; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 14px 28px;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    border-radius: 999px;
+    transition: transform 200ms ease, background 200ms ease, color 200ms ease;
+  }
+  .btn-primary { background: var(--color-accent-bright); color: var(--color-primary-dark); }
+  .btn-primary:hover { transform: translateY(-1px); background: #D9EE92; }
+  .btn-ghost { background: transparent; color: var(--color-bg); border: 1.5px solid rgba(244,238,222,0.4); }
+  .btn-ghost:hover { background: rgba(244,238,222,0.08); }
+  .hero-visual {
+    position: relative;
+    background:
+      radial-gradient(120% 120% at 80% 20%, rgba(197,225,122,0.25), transparent 60%),
+      linear-gradient(160deg, #2A5240 0%, #1A3527 100%);
+    display: flex; align-items: flex-end; justify-content: center;
+    overflow: hidden;
+  }
+  .hero-visual::before {
+    content: ""; position: absolute; inset: 0;
+    background-image:
+      radial-gradient(circle at 30% 40%, rgba(197,225,122,0.14) 0, transparent 42%),
+      radial-gradient(circle at 75% 70%, rgba(255,255,255,0.08) 0, transparent 38%);
+  }
+  .hero-visual svg { position: relative; z-index: 2; width: 88%; max-width: 520px; }
+  .hero-tags {
+    position: absolute; left: 32px; bottom: 32px; z-index: 3;
+    display: flex; flex-direction: column; gap: 10px;
+    font-family: var(--font-display);
+    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--color-bg);
+  }
+  .hero-tags span { background: rgba(26,53,39,0.6); padding: 8px 14px; border-radius: 999px; backdrop-filter: blur(6px); }
+
+  /* ---------- Marquee ---------- */
+  .marquee {
+    background: var(--color-accent-bright);
+    color: var(--color-primary-dark);
+    overflow: hidden;
+    border-top: 1px solid var(--color-primary-dark);
+    border-bottom: 1px solid var(--color-primary-dark);
+  }
+  .marquee-track {
+    display: flex; gap: 56px;
+    padding: 14px 0;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 14px; letter-spacing: 0.18em; text-transform: uppercase;
+    white-space: nowrap;
+    animation: scroll 32s linear infinite;
+  }
+  .marquee-track span::before { content: "✦"; margin-right: 56px; opacity: 0.6; }
+  @keyframes scroll { to { transform: translateX(-50%); } }
+
+  /* ---------- Section heading ---------- */
+  .section { padding: clamp(56px, 8vw, 112px) 0; }
+  .section-head {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    gap: 24px; margin-bottom: 40px; flex-wrap: wrap;
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(32px, 4.2vw, 56px);
+    line-height: 1;
+    letter-spacing: -0.015em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+  }
+  .section-lead { color: var(--color-muted); max-width: 420px; font-size: 15px; line-height: 1.55; }
+  .link-more {
+    font-family: var(--font-display);
+    font-weight: 700; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--color-primary);
+    border-bottom: 1.5px solid var(--color-primary);
+    padding-bottom: 4px;
+  }
+
+  /* ---------- Category grid ---------- */
+  .cat-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+  }
+  .cat-card {
+    position: relative; aspect-ratio: 3/4; border-radius: 16px; overflow: hidden;
+    background: var(--color-border);
+    transition: transform 250ms ease, box-shadow 250ms ease;
+  }
+  .cat-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px -24px rgba(31,61,47,0.45); }
+  .cat-card::after {
+    content: ""; position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 85%, rgba(31,61,47,0.35), transparent 55%);
+    pointer-events: none;
+  }
+  .cat-art { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+  .cat-art svg { width: 80%; filter: drop-shadow(0 18px 28px rgba(0,0,0,0.25)); }
+  .cat-card .tag {
+    position: absolute; top: 14px; left: 14px; z-index: 2;
+    font-family: var(--font-display); font-size: 10px; font-weight: 700;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    background: rgba(255,255,255,0.92); color: var(--color-primary);
+    padding: 6px 10px; border-radius: 999px;
+  }
+  .cat-card .label {
+    position: absolute; left: 0; right: 0; bottom: 0; z-index: 2;
+    padding: 22px 22px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--font-display);
+    font-weight: 900; font-size: 18px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: #fff;
+  }
+  .cat-card .label svg { width: 22px; height: 22px; }
+  .cat-a { background: linear-gradient(155deg, #4A7A5A 0%, #1F3D2F 100%); }
+  .cat-b { background: linear-gradient(155deg, #D4B07A 0%, #8C6C3E 100%); }
+  .cat-c { background: linear-gradient(155deg, #7A9887 0%, #2E4A38 100%); }
+  .cat-d { background: linear-gradient(155deg, #E6C89C 0%, #8A7150 100%); }
+
+  /* ---------- Body-happy section ---------- */
+  .bhd {
+    background: var(--color-bg);
+  }
+  .bhd-wrap {
+    display: grid; grid-template-columns: 1.1fr 1fr; gap: 48px; align-items: center;
+  }
+  .bhd-copy h2 {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(40px, 6vw, 96px);
+    line-height: 0.94; letter-spacing: -0.015em; text-transform: uppercase;
+    color: var(--color-primary);
+  }
+  .bhd-copy h2 em { font-style: normal; color: var(--color-accent); display: block; }
+  .bhd-copy p { margin-top: 20px; color: var(--color-muted); max-width: 440px; line-height: 1.6; font-size: 16px; }
+  .bhd-list { list-style: none; margin-top: 28px; display: grid; gap: 14px; }
+  .bhd-list li {
+    display: flex; align-items: center; gap: 12px;
+    font-size: 14px; font-weight: 500;
+  }
+  .bhd-list li::before {
+    content: ""; width: 22px; height: 22px; border-radius: 50%;
+    background: var(--color-accent-bright);
+    background-image: linear-gradient(135deg, #C5E17A, #7FB069);
+    flex: 0 0 auto;
+  }
+  .bhd-gallery {
+    display: grid; grid-template-columns: 1.1fr 0.9fr; grid-template-rows: 220px 160px 160px;
+    gap: 12px;
+  }
+  .bhd-gallery > div { border-radius: 14px; overflow: hidden; position: relative; }
+  .bhd-gallery > div:nth-child(1) { grid-row: span 2; }
+  .bhd-gallery > div:nth-child(4) { grid-column: span 2; height: 200px; }
+  .bhd-gallery > div::after {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(0,0,0,0.25) 100%);
+  }
+  .bhd-g1 { background: linear-gradient(160deg, #C9B58B 0%, #8D6E4A 100%); }
+  .bhd-g1::before { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 70%, rgba(31,61,47,0.35), transparent 55%); }
+  .bhd-g2 { background: linear-gradient(160deg, #6E9478, #2C4A38); }
+  .bhd-g3 { background: linear-gradient(160deg, #D7C39B, #9C8059); }
+  .bhd-g4 { background: linear-gradient(110deg, #3A6A4E 0%, #1F3D2F 50%, #2F4B3B 100%); display: flex; align-items: center; padding: 0 28px; }
+  .bhd-g4 .caption {
+    font-family: var(--font-display); font-weight: 900; font-size: clamp(22px, 2.2vw, 32px);
+    line-height: 1; letter-spacing: -0.01em; text-transform: uppercase; color: var(--color-bg);
+    position: relative; z-index: 2;
+  }
+  .bhd-g4 .caption em { font-style: normal; color: var(--color-accent-bright); }
+
+  /* ---------- Product spotlight ---------- */
+  .spot {
+    background: #EAE1C7;
+    padding: clamp(56px, 8vw, 104px) 0;
+  }
+  .spot-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center;
+  }
+  .spot-visual {
+    aspect-ratio: 1/1;
+    border-radius: 20px;
+    background:
+      radial-gradient(80% 80% at 50% 50%, #F4EEDE 0, transparent 70%),
+      linear-gradient(160deg, #D9CAA4, #B89E6F);
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .spot-visual svg { width: 62%; }
+  .spot-callout {
+    position: absolute;
+    background: var(--color-surface);
+    color: var(--color-primary);
+    font-family: var(--font-display);
+    font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 10px 14px;
+    border-radius: 999px;
+    box-shadow: 0 6px 18px rgba(31,61,47,0.12);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .spot-callout::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--color-accent); }
+  .spot-c1 { top: 16%; left: -18px; }
+  .spot-c2 { top: 48%; right: -24px; }
+  .spot-c3 { bottom: 14%; left: 10%; }
+  .spot-copy .eyebrow { color: var(--color-primary); opacity: 0.6; }
+  .spot-copy h2 {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(36px, 5vw, 72px);
+    line-height: 0.96;
+    letter-spacing: -0.015em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    margin-top: 12px;
+  }
+  .spot-copy p { margin-top: 18px; color: var(--color-muted); max-width: 440px; line-height: 1.6; font-size: 16px; }
+  .spec-row {
+    margin-top: 28px;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+  }
+  .spec {
+    background: rgba(255,255,255,0.6);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: 16px;
+  }
+  .spec .k { font-family: var(--font-display); font-weight: 800; font-size: 20px; color: var(--color-primary); }
+  .spec .v { font-size: 12px; color: var(--color-muted); margin-top: 4px; letter-spacing: 0.02em; }
+  .spot-copy .hero-cta { margin-top: 28px; }
+  .spot-copy .btn-primary { background: var(--color-primary); color: var(--color-bg); }
+  .spot-copy .btn-primary:hover { background: var(--color-primary-dark); }
+  .spot-copy .btn-ghost { color: var(--color-primary); border-color: rgba(31,61,47,0.35); }
+
+  /* ---------- Products carousel ---------- */
+  .products { background: var(--color-bg); }
+  .carousel { position: relative; }
+  .carousel-track {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: calc((100% - 60px) / 4);
+    gap: 20px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    padding-bottom: 8px;
+    margin: 0 calc(var(--pad-x) * -1);
+    padding-left: var(--pad-x);
+    padding-right: var(--pad-x);
+  }
+  .carousel-track::-webkit-scrollbar { display: none; }
+  .carousel-nav {
+    display: inline-flex; gap: 10px;
+  }
+  .carousel-nav button {
+    width: 44px; height: 44px; border-radius: 50%;
+    border: 1.5px solid var(--color-primary);
+    color: var(--color-primary); background: transparent;
+    display: inline-flex; align-items: center; justify-content: center;
+    transition: background 200ms, color 200ms, transform 200ms;
+  }
+  .carousel-nav button:hover { background: var(--color-primary); color: var(--color-bg); }
+  .carousel-nav button:active { transform: scale(0.94); }
+  .carousel-nav svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2; }
+
+  .product {
+    background: transparent;
+    scroll-snap-align: start;
+    display: flex; flex-direction: column;
+  }
+  .product-img {
+    aspect-ratio: 1/1;
+    border-radius: 14px;
+    background: linear-gradient(160deg, #E5D9B7, #C9B58B);
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 14px;
+    transition: transform 300ms ease;
+  }
+  .product:hover .product-img { transform: translateY(-4px); }
+  .product-img::after {
+    content: ""; position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 80%, rgba(31,61,47,0.3), transparent 55%);
+  }
+  .product-img svg { width: 75%; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 2; filter: drop-shadow(0 14px 22px rgba(0,0,0,0.22)); }
+  .product-badge {
+    position: absolute; top: 14px; left: 14px; z-index: 3;
+    font-family: var(--font-display); font-size: 10px; font-weight: 800;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    background: var(--color-accent-bright); color: var(--color-primary-dark);
+    padding: 6px 10px; border-radius: 999px;
+  }
+  .product-quick {
+    position: absolute; right: 14px; bottom: 14px; z-index: 3;
+    width: 40px; height: 40px; border-radius: 50%;
+    background: var(--color-surface); color: var(--color-primary);
+    display: inline-flex; align-items: center; justify-content: center;
+    opacity: 0; transform: translateY(6px);
+    transition: opacity 220ms, transform 220ms;
+    box-shadow: 0 6px 18px rgba(31,61,47,0.18);
+  }
+  .product-quick svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2; }
+  .product:hover .product-quick { opacity: 1; transform: translateY(0); }
+
+  .product .meta { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+  .product .name { font-family: var(--font-display); font-weight: 700; font-size: 14px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-primary); }
+  .product .price { font-family: var(--font-display); font-weight: 700; font-size: 14px; color: var(--color-primary); }
+  .product .price s { color: var(--color-muted); font-weight: 500; margin-right: 6px; font-size: 12px; }
+  .product .desc { color: var(--color-muted); font-size: 13px; margin-top: 4px; }
+  .swatches { display: flex; gap: 6px; margin-top: 10px; }
+  .swatch {
+    width: 16px; height: 16px; border-radius: 50%;
+    border: 1.5px solid rgba(255,255,255,0.9);
+    box-shadow: 0 0 0 1px var(--color-border);
+    cursor: pointer;
+    transition: transform 150ms;
+  }
+  .swatch:hover { transform: scale(1.18); }
+  .swatch.active { box-shadow: 0 0 0 1.5px var(--color-primary); }
+
+  .prod-a { background: linear-gradient(160deg, #A7C39D, #4B7257); }
+  .prod-b { background: linear-gradient(160deg, #E8D4AE, #B89466); }
+  .prod-c { background: linear-gradient(160deg, #C1A875, #8C6E3F); }
+  .prod-d { background: linear-gradient(160deg, #7E9E85, #365846); }
+  .prod-e { background: linear-gradient(160deg, #DBC5A0, #9B7D4E); }
+  .prod-f { background: linear-gradient(160deg, #5F8C72, #2C4A38); }
+  .prod-g { background: linear-gradient(160deg, #C9A884, #7A5B34); }
+  .prod-h { background: linear-gradient(160deg, #90A996, #3F5B47); }
+
+  /* ---------- Reusable banner ---------- */
+  .banner {
+    background: var(--color-primary);
+    color: var(--color-bg);
+    padding: clamp(56px, 8vw, 104px) 0;
+    position: relative; overflow: hidden;
+  }
+  .banner::before, .banner::after {
+    content: ""; position: absolute; width: 420px; height: 420px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(197,225,122,0.22), transparent 65%);
+  }
+  .banner::before { left: -120px; top: -120px; }
+  .banner::after { right: -160px; bottom: -160px; }
+  .banner-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center;
+    position: relative; z-index: 2;
+  }
+  .banner h2 {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(48px, 7.5vw, 128px);
+    line-height: 0.92;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+  }
+  .banner h2 em { font-style: normal; color: var(--color-accent-bright); }
+  .banner p { margin-top: 20px; max-width: 440px; color: rgba(244,238,222,0.8); line-height: 1.6; font-size: 16px; }
+  .banner .btn-primary { background: var(--color-accent-bright); color: var(--color-primary-dark); margin-top: 28px; }
+  .banner-visual {
+    aspect-ratio: 4/5;
+    border-radius: 20px;
+    background:
+      radial-gradient(70% 70% at 50% 45%, rgba(197,225,122,0.35), transparent 65%),
+      linear-gradient(160deg, #2B5340, #0F2418);
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+  .banner-visual svg { width: 60%; }
+
+  /* ---------- Promise / features ---------- */
+  .promise { background: var(--color-bg); border-top: 1px solid var(--color-border); }
+  .promise-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px;
+    padding: 48px 0;
+  }
+  .promise-item { display: flex; flex-direction: column; gap: 10px; }
+  .promise-item .ico {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: var(--color-accent-bright);
+    display: inline-flex; align-items: center; justify-content: center;
+    color: var(--color-primary);
+  }
+  .promise-item .ico svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 1.8; }
+  .promise-item h3 { font-family: var(--font-display); font-weight: 800; font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-primary); }
+  .promise-item p { font-size: 13px; color: var(--color-muted); line-height: 1.5; }
+
+  /* ---------- Newsletter ---------- */
+  .news { background: var(--color-primary); color: var(--color-bg); padding: 64px 0; }
+  .news-wrap { display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: center; }
+  .news h3 { font-family: var(--font-display); font-weight: 900; font-size: clamp(28px, 3.4vw, 44px); line-height: 1; text-transform: uppercase; letter-spacing: -0.01em; }
+  .news p { margin-top: 12px; color: rgba(244,238,222,0.75); font-size: 14px; max-width: 380px; }
+  .news form { display: flex; gap: 10px; border: 1px solid rgba(244,238,222,0.25); border-radius: 999px; padding: 6px; }
+  .news input {
+    flex: 1; background: transparent; border: none; color: var(--color-bg);
+    padding: 10px 18px; font: inherit; outline: none;
+  }
+  .news input::placeholder { color: rgba(244,238,222,0.55); }
+  .news button { background: var(--color-accent-bright); color: var(--color-primary-dark); border-radius: 999px; padding: 12px 22px; font-family: var(--font-display); font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; font-size: 12px; }
+
+  /* ---------- Footer ---------- */
+  footer { background: var(--color-primary-dark); color: rgba(244,238,222,0.8); padding: 72px 0 28px; }
+  .foot-grid {
+    display: grid; grid-template-columns: 2fr repeat(3, 1fr); gap: 48px;
+  }
+  .foot-brand .logo { color: var(--color-bg); font-size: 28px; }
+  .foot-brand p { margin-top: 16px; font-size: 14px; max-width: 320px; color: rgba(244,238,222,0.65); line-height: 1.6; }
+  .foot-col h4 { font-family: var(--font-display); font-weight: 800; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-bg); margin-bottom: 16px; }
+  .foot-col ul { list-style: none; display: grid; gap: 10px; }
+  .foot-col a { font-size: 14px; color: rgba(244,238,222,0.7); }
+  .foot-col a:hover { color: var(--color-bg); }
+  .foot-bottom {
+    border-top: 1px solid rgba(244,238,222,0.12);
+    margin-top: 48px; padding-top: 24px;
+    display: flex; justify-content: space-between; align-items: center; font-size: 12px;
+    color: rgba(244,238,222,0.5);
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 960px) {
+    .hero-grid { grid-template-columns: 1fr; min-height: auto; }
+    .hero-visual { aspect-ratio: 4/5; }
+    .cat-grid { grid-template-columns: repeat(2, 1fr); }
+    .bhd-wrap { grid-template-columns: 1fr; }
+    .spot-grid { grid-template-columns: 1fr; }
+    .carousel-track { grid-auto-columns: calc((100% - 20px) / 2); }
+    .banner-grid { grid-template-columns: 1fr; }
+    .promise-grid { grid-template-columns: repeat(2, 1fr); }
+    .news-wrap { grid-template-columns: 1fr; }
+    .foot-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 640px) {
+    .nav { grid-template-columns: auto 1fr auto; }
+    .nav-left .nav-link { display: none; }
+    .section { padding: 56px 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Announcement -->
+<div class="announce">
+  Free carbon-neutral shipping over $60 <span>•</span> Earth Day Sale · up to 30% off <span>•</span> Made in small batches
+</div>
+
+<!-- Header -->
+<header class="site-header">
+  <div class="container nav">
+    <nav class="nav-left">
+      <a class="nav-link" href="#">Shop</a>
+      <a class="nav-link" href="#">Collections</a>
+      <a class="nav-link" href="#">Journal</a>
+      <a class="nav-link" href="#">About</a>
+    </nav>
+    <a href="#" class="logo">Maison<sup>®</sup> Verde</a>
+    <div class="nav-right">
+      <a class="nav-link" href="#">Search</a>
+      <a class="nav-link" href="#">Account</a>
+      <a class="icon-btn" href="#" aria-label="Cart">
+        <svg viewBox="0 0 24 24"><path d="M3 6h18l-2 13H5L3 6z"/><path d="M8 6a4 4 0 0 1 8 0"/></svg>
+        Cart (0)
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-grid">
+    <div class="hero-copy">
+      <span class="eyebrow">Earth Day · Seasonal Edit</span>
+      <h1 class="hero-title">Stay<br/>kind to<br/><em>every&nbsp;day.</em></h1>
+      <p class="hero-sub">A sustainable edit of everyday essentials — made from certified organic cotton, shipped carbon-neutral, designed to last seasons.</p>
+      <div class="hero-cta">
+        <a href="#" class="btn btn-primary">Shop the edit →</a>
+        <a href="#" class="btn btn-ghost">Our promise</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <svg viewBox="0 0 440 560" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <linearGradient id="heroFabric" x1="0" x2="1" y1="0" y2="1">
+            <stop offset="0" stop-color="#F4EEDE" stop-opacity="0.98"/>
+            <stop offset="1" stop-color="#C5E17A" stop-opacity="0.55"/>
+          </linearGradient>
+          <radialGradient id="heroGlow" cx="0.5" cy="0.45" r="0.55">
+            <stop offset="0" stop-color="#C5E17A" stop-opacity="0.35"/>
+            <stop offset="1" stop-color="#C5E17A" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <circle cx="220" cy="260" r="230" fill="url(#heroGlow)"/>
+        <ellipse cx="220" cy="520" rx="180" ry="16" fill="#0F2418" opacity="0.35"/>
+        <!-- large underwear hero silhouette -->
+        <path d="M70 180 Q220 110 370 180 L360 360 Q330 460 220 510 Q110 460 80 360 Z" fill="url(#heroFabric)"/>
+        <path d="M110 210 Q220 150 330 210 L322 345 Q300 430 220 475 Q140 430 118 345 Z" fill="#fff" opacity="0.18"/>
+        <path d="M70 180 Q220 110 370 180 L370 212 Q220 146 70 212 Z" fill="#0F2418" opacity="0.25"/>
+        <rect x="195" y="310" width="50" height="65" rx="8" fill="#1F3D2F" opacity="0.9"/>
+        <text x="220" y="352" text-anchor="middle" fill="#C5E17A" font-family="Archivo" font-weight="900" font-size="22" letter-spacing="1">V®</text>
+      </svg>
+      <div class="hero-tags">
+        <span>Organic cotton</span>
+        <span>GOTS certified</span>
+        <span>Carbon neutral</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Marquee -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>Free shipping over $60</span>
+    <span>Planet-first materials</span>
+    <span>Made in small batches</span>
+    <span>365-day returns</span>
+    <span>Free shipping over $60</span>
+    <span>Planet-first materials</span>
+    <span>Made in small batches</span>
+    <span>365-day returns</span>
+  </div>
+</div>
+
+<!-- Categories -->
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow" style="color: var(--color-primary); opacity: 0.55;">Choose your fit</span>
+        <h2 class="section-title" style="margin-top: 8px;">Shop by style</h2>
+      </div>
+      <p class="section-lead">Four signature cuts, thoughtfully designed to move with your day. Every pair is cut-and-sewn in our partner atelier in Porto.</p>
+    </div>
+    <div class="cat-grid">
+      <a href="#" class="cat-card cat-a">
+        <span class="tag">New</span>
+        <div class="cat-art">
+          <svg viewBox="0 0 240 300" xmlns="http://www.w3.org/2000/svg">
+            <!-- high-waist silhouette -->
+            <path d="M40 40 L200 40 L204 180 Q190 240 120 270 Q50 240 36 180 Z" fill="#F4EEDE" opacity="0.95"/>
+            <path d="M56 60 L184 60 L188 170 Q176 220 120 250 Q64 220 52 170 Z" fill="#fff" opacity="0.2"/>
+            <path d="M40 40 L200 40 L200 60 L40 60 Z" fill="#1F3D2F" opacity="0.3"/>
+            <path d="M110 200 Q120 212 130 200" stroke="#1F3D2F" stroke-width="1.5" fill="none" opacity="0.35"/>
+          </svg>
+        </div>
+        <div class="label">High-waist <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+      </a>
+      <a href="#" class="cat-card cat-b">
+        <div class="cat-art">
+          <svg viewBox="0 0 240 300" xmlns="http://www.w3.org/2000/svg">
+            <!-- bikini cut -->
+            <path d="M30 130 Q120 80 210 130 L196 215 Q160 262 120 262 Q80 262 44 215 Z" fill="#F4EEDE" opacity="0.95"/>
+            <path d="M56 150 Q120 115 184 150 L172 200 Q150 238 120 238 Q90 238 68 200 Z" fill="#fff" opacity="0.22"/>
+            <path d="M30 130 Q120 80 210 130 L210 148 Q120 104 30 148 Z" fill="#8C6C3E" opacity="0.2"/>
+          </svg>
+        </div>
+        <div class="label">Bikini <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+      </a>
+      <a href="#" class="cat-card cat-c">
+        <div class="cat-art">
+          <svg viewBox="0 0 240 300" xmlns="http://www.w3.org/2000/svg">
+            <!-- boyshort -->
+            <path d="M30 90 L210 90 Q218 220 180 240 L150 240 L130 180 L110 180 L90 240 L60 240 Q22 220 30 90 Z" fill="#F4EEDE" opacity="0.95"/>
+            <path d="M54 110 L186 110 Q192 210 164 222 L150 222 L136 190 L104 190 L90 222 L76 222 Q48 210 54 110 Z" fill="#fff" opacity="0.2"/>
+            <path d="M30 90 L210 90 L210 108 L30 108 Z" fill="#1F3D2F" opacity="0.3"/>
+          </svg>
+        </div>
+        <div class="label">Boyshort <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+      </a>
+      <a href="#" class="cat-card cat-d">
+        <span class="tag">Best seller</span>
+        <div class="cat-art">
+          <svg viewBox="0 0 240 300" xmlns="http://www.w3.org/2000/svg">
+            <!-- chill fit (brief) -->
+            <path d="M40 100 Q120 76 200 100 L190 220 Q160 258 120 258 Q80 258 50 220 Z" fill="#F4EEDE" opacity="0.95"/>
+            <path d="M64 122 Q120 102 176 122 L168 210 Q144 236 120 236 Q96 236 72 210 Z" fill="#fff" opacity="0.22"/>
+            <path d="M40 100 Q120 76 200 100 L200 118 Q120 96 40 118 Z" fill="#8A7150" opacity="0.2"/>
+            <path d="M114 190 Q120 196 126 190" stroke="#1F3D2F" stroke-width="1.4" fill="none" opacity="0.3"/>
+          </svg>
+        </div>
+        <div class="label">Chill fit <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Body-happy design -->
+<section class="section bhd">
+  <div class="container bhd-wrap">
+    <div class="bhd-copy">
+      <span class="eyebrow" style="color: var(--color-primary); opacity: 0.55;">Body-happy design</span>
+      <h2 style="margin-top: 12px;">Made to<br/><em>move with you.</em></h2>
+      <p>Soft seams, breathable weaves, and a cut that stays put. We obsess over the small details so your day feels easy.</p>
+      <ul class="bhd-list">
+        <li>Second-skin organic cotton</li>
+        <li>Bonded seams — zero chafe</li>
+        <li>Four-way stretch recovery</li>
+        <li>Oeko-Tex verified dyes</li>
+      </ul>
+    </div>
+    <div class="bhd-gallery">
+      <div class="bhd-g1"></div>
+      <div class="bhd-g2"></div>
+      <div class="bhd-g3"></div>
+      <div class="bhd-g4"><span class="caption">Softness,<br/><em>reimagined.</em></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- Product spotlight -->
+<section class="spot">
+  <div class="container spot-grid">
+    <div class="spot-visual">
+      <svg viewBox="0 0 300 300" aria-hidden="true">
+        <ellipse cx="150" cy="270" rx="100" ry="10" fill="#1F3D2F" opacity="0.2"/>
+        <path d="M60 80 Q150 20 240 80 Q250 180 220 240 Q185 270 150 270 Q115 270 80 240 Q50 180 60 80 Z" fill="#1F3D2F"/>
+        <path d="M80 100 Q150 50 220 100 Q225 170 200 220 Q175 245 150 245 Q125 245 100 220 Q75 170 80 100 Z" fill="#2D5A41"/>
+        <path d="M130 140 L170 140 L165 200 L135 200 Z" fill="#C5E17A"/>
+      </svg>
+      <div class="spot-callout spot-c1">Leak-free lining</div>
+      <div class="spot-callout spot-c2">All-day comfort</div>
+      <div class="spot-callout spot-c3">Soft bonded seams</div>
+    </div>
+    <div class="spot-copy">
+      <span class="eyebrow">Signature style</span>
+      <h2>Leak-free comfort protection.</h2>
+      <p>Our hero pair combines a four-layer core with ultralight organic cotton — designed to feel invisible and look effortlessly clean.</p>
+      <div class="spec-row">
+        <div class="spec"><div class="k">12h</div><div class="v">Dry-feel wear</div></div>
+        <div class="spec"><div class="k">0%</div><div class="v">Plastic in fabric</div></div>
+        <div class="spec"><div class="k">4</div><div class="v">Absorbency layers</div></div>
+      </div>
+      <div class="hero-cta">
+        <a href="#" class="btn btn-primary">Add to cart — $34</a>
+        <a href="#" class="btn btn-ghost">See details</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Products carousel -->
+<section class="section products">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow" style="color: var(--color-primary); opacity: 0.55;">Best sellers</span>
+        <h2 class="section-title" style="margin-top: 8px;">The everyday edit</h2>
+      </div>
+      <div style="display: flex; align-items: center; gap: 24px;">
+        <a class="link-more" href="#">Shop all →</a>
+        <div class="carousel-nav">
+          <button type="button" data-dir="-1" aria-label="Previous">
+            <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <button type="button" data-dir="1" aria-label="Next">
+            <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="carousel">
+      <div class="carousel-track" id="prodTrack">
+        <a class="product" href="#">
+          <div class="product-img prod-a">
+            <span class="product-badge">New</span>
+            <svg viewBox="0 0 240 240"><path d="M40 60 L200 60 L202 150 Q184 200 120 215 Q56 200 38 150 Z" fill="#F4EEDE" opacity="0.95"/><path d="M54 76 L186 76 L188 145 Q172 188 120 198 Q68 188 52 145 Z" fill="#fff" opacity="0.2"/><path d="M40 60 L200 60 L200 78 L40 78 Z" fill="#1F3D2F" opacity="0.35"/></svg>
+            <button class="product-quick" type="button" aria-label="Quick add"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
+          </div>
+          <div class="meta"><div class="name">The Everyday Brief</div><div class="price">$28</div></div>
+          <p class="desc">Organic cotton · Moss Green</p>
+          <div class="swatches">
+            <span class="swatch active" style="background:#4B7257" title="Moss Green"></span>
+            <span class="swatch" style="background:#C9B58B" title="Sand"></span>
+            <span class="swatch" style="background:#1A1A1A" title="Night"></span>
+            <span class="swatch" style="background:#F4EEDE" title="Cream"></span>
+          </div>
+        </a>
+        <a class="product" href="#">
+          <div class="product-img prod-b">
+            <svg viewBox="0 0 240 240"><path d="M32 80 L208 80 Q214 190 180 205 L152 205 L134 160 L106 160 L88 205 L60 205 Q26 190 32 80 Z" fill="#F4EEDE" opacity="0.95"/><path d="M52 96 L188 96 Q192 180 164 192 L148 192 L134 168 L106 168 L92 192 L76 192 Q48 180 52 96 Z" fill="#fff" opacity="0.2"/><path d="M32 80 L208 80 L208 96 L32 96 Z" fill="#1F3D2F" opacity="0.35"/></svg>
+            <button class="product-quick" type="button" aria-label="Quick add"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
+          </div>
+          <div class="meta"><div class="name">Chill Fit Short</div><div class="price"><s>$38</s>$32</div></div>
+          <p class="desc">GOTS cotton · Sand</p>
+          <div class="swatches">
+            <span class="swatch active" style="background:#C9B58B"></span>
+            <span class="swatch" style="background:#4B7257"></span>
+            <span class="swatch" style="background:#8B6F4E"></span>
+          </div>
+        </a>
+        <a class="product" href="#">
+          <div class="product-img prod-c">
+            <svg viewBox="0 0 240 240"><path d="M40 30 L200 30 L202 140 Q186 200 120 220 Q54 200 38 140 Z" fill="#F4EEDE" opacity="0.95"/><path d="M54 50 L186 50 L188 138 Q174 190 120 205 Q66 190 52 138 Z" fill="#fff" opacity="0.22"/><path d="M40 30 L200 30 L200 52 L40 52 Z" fill="#1F3D2F" opacity="0.38"/></svg>
+            <button class="product-quick" type="button" aria-label="Quick add"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
+          </div>
+          <div class="meta"><div class="name">High-waist Mover</div><div class="price">$34</div></div>
+          <p class="desc">4-way stretch · Clay</p>
+          <div class="swatches">
+            <span class="swatch active" style="background:#8C6C3E"></span>
+            <span class="swatch" style="background:#1F3D2F"></span>
+            <span class="swatch" style="background:#C9B58B"></span>
+            <span class="swatch" style="background:#D4A5A5"></span>
+          </div>
+        </a>
+        <a class="product" href="#">
+          <div class="product-img prod-d">
+            <span class="product-badge">Best</span>
+            <svg viewBox="0 0 240 240"><path d="M30 110 Q120 68 210 110 L198 188 Q160 226 120 226 Q80 226 42 188 Z" fill="#F4EEDE" opacity="0.95"/><path d="M54 128 Q120 96 186 128 L176 180 Q150 206 120 206 Q90 206 64 180 Z" fill="#fff" opacity="0.22"/><path d="M30 110 Q120 68 210 110 L210 128 Q120 90 30 128 Z" fill="#1F3D2F" opacity="0.3"/></svg>
+            <button class="product-quick" type="button" aria-label="Quick add"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
+          </div>
+          <div class="meta"><div class="name">Ease Bikini</div><div class="price">$26</div></div>
+          <p class="desc">Second-skin · Forest</p>
+          <div class="swatches">
+            <span class="swatch active" style="background:#365846"></span>
+            <span class="swatch" style="background:#C9B58B"></span>
+            <span class="swatch" style="background:#1A1A1A"></span>
+          </div>
+        </a>
+        <a class="product" href="#">
+          <div class="product-img prod-e">
+            <svg viewBox="0 0 240 240"><path d="M40 60 L200 60 L202 150 Q184 200 120 215 Q56 200 38 150 Z" fill="#F4EEDE" opacity="0.95"/><path d="M54 76 L186 76 L188 145 Q172 188 120 198 Q68 188 52 145 Z" fill="#fff" opacity="0.2"/><path d="M40 60 L200 60 L200 78 L40 78 Z" fill="#1F3D2F" opacity="0.35"/></svg>
+            <button class="product-quick" type="button" aria-label="Quick add"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
+          </div>
+          <div class="meta"><div class="name">Seamless Brief</div><div class="price">$30</div></div>
+          <p class="desc">Recycled nylon · Dune</p>
+          <div class="swatches">
+            <span class="swatch active" style="background:#9B7D4E"></span>
+            <span class="swatch" style="background:#2C4A38"></span>
+            <span class="swatch" style="background:#D4A5A5"></span>
+          </div>
+        </a>
+        <a class="product" href="#">
+          <div class="product-img prod-f">
+            <svg viewBox="0 0 240 240"><path d="M30 110 Q120 68 210 110 L198 188 Q160 226 120 226 Q80 226 42 188 Z" fill="#F4EEDE" opacity="0.95"/><path d="M54 128 Q120 96 186 128 L176 180 Q150 206 120 206 Q90 206 64 180 Z" fill="#fff" opacity="0.22"/><path d="M30 110 Q120 68 210 110 L210 128 Q120 90 30 128 Z" fill="#1F3D2F" opacity="0.3"/></svg>
+            <button class="product-quick" type="button" aria-label="Quick add"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
+          </div>
+          <div class="meta"><div class="name">Soft Thong</div><div class="price">$22</div></div>
+          <p class="desc">Bamboo jersey · Pine</p>
+          <div class="swatches">
+            <span class="swatch active" style="background:#2C4A38"></span>
+            <span class="swatch" style="background:#1A1A1A"></span>
+            <span class="swatch" style="background:#F4EEDE"></span>
+          </div>
+        </a>
+        <a class="product" href="#">
+          <div class="product-img prod-g">
+            <span class="product-badge">-20%</span>
+            <svg viewBox="0 0 240 240"><path d="M32 80 L208 80 Q214 190 180 205 L152 205 L134 160 L106 160 L88 205 L60 205 Q26 190 32 80 Z" fill="#F4EEDE" opacity="0.95"/><path d="M52 96 L188 96 Q192 180 164 192 L148 192 L134 168 L106 168 L92 192 L76 192 Q48 180 52 96 Z" fill="#fff" opacity="0.2"/><path d="M32 80 L208 80 L208 96 L32 96 Z" fill="#1F3D2F" opacity="0.35"/></svg>
+            <button class="product-quick" type="button" aria-label="Quick add"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
+          </div>
+          <div class="meta"><div class="name">Boyshort Classic</div><div class="price"><s>$34</s>$27</div></div>
+          <p class="desc">Organic cotton · Cocoa</p>
+          <div class="swatches">
+            <span class="swatch active" style="background:#7A5B34"></span>
+            <span class="swatch" style="background:#1A1A1A"></span>
+            <span class="swatch" style="background:#4B7257"></span>
+          </div>
+        </a>
+        <a class="product" href="#">
+          <div class="product-img prod-h">
+            <svg viewBox="0 0 240 240"><path d="M40 30 L200 30 L202 140 Q186 200 120 220 Q54 200 38 140 Z" fill="#F4EEDE" opacity="0.95"/><path d="M54 50 L186 50 L188 138 Q174 190 120 205 Q66 190 52 138 Z" fill="#fff" opacity="0.22"/><path d="M40 30 L200 30 L200 52 L40 52 Z" fill="#1F3D2F" opacity="0.38"/></svg>
+            <button class="product-quick" type="button" aria-label="Quick add"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
+          </div>
+          <div class="meta"><div class="name">Eco High-Rise</div><div class="price">$36</div></div>
+          <p class="desc">Modal blend · Sage</p>
+          <div class="swatches">
+            <span class="swatch active" style="background:#3F5B47"></span>
+            <span class="swatch" style="background:#C9B58B"></span>
+            <span class="swatch" style="background:#1A1A1A"></span>
+            <span class="swatch" style="background:#D4A5A5"></span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  (function() {
+    const track = document.getElementById('prodTrack');
+    if (!track) return;
+    document.querySelectorAll('.carousel-nav button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const dir = Number(btn.dataset.dir);
+        const card = track.querySelector('.product');
+        const step = card ? card.offsetWidth + 20 : 280;
+        track.scrollBy({ left: dir * step * 2, behavior: 'smooth' });
+      });
+    });
+    document.querySelectorAll('.swatches').forEach(group => {
+      group.addEventListener('click', e => {
+        const sw = e.target.closest('.swatch');
+        if (!sw) return;
+        e.preventDefault();
+        group.querySelectorAll('.swatch').forEach(s => s.classList.remove('active'));
+        sw.classList.add('active');
+      });
+    });
+  })();
+</script>
+
+<!-- Large banner -->
+<section class="banner">
+  <div class="container banner-grid">
+    <div>
+      <span class="eyebrow">Made to last</span>
+      <h2>Reusable<br/><em>essentials.</em></h2>
+      <p>Our reusable pads are designed for 200+ wears. Wash cold, hang dry, wear for years — the easiest switch you can make today.</p>
+      <a href="#" class="btn btn-primary">Explore reusables →</a>
+    </div>
+    <div class="banner-visual">
+      <svg viewBox="0 0 300 360" aria-hidden="true">
+        <rect x="40" y="40" width="220" height="280" rx="24" fill="#F4EEDE" opacity="0.08"/>
+        <path d="M70 120 Q150 60 230 120 L220 260 Q185 310 150 310 Q115 310 80 260 Z" fill="#C5E17A" opacity="0.85"/>
+        <path d="M90 140 Q150 100 210 140 L200 250 Q175 290 150 290 Q125 290 100 250 Z" fill="#1F3D2F" opacity="0.9"/>
+        <rect x="130" y="190" width="40" height="50" rx="6" fill="#C5E17A"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- Promise -->
+<section class="promise">
+  <div class="container promise-grid">
+    <div class="promise-item">
+      <span class="ico"><svg viewBox="0 0 24 24"><path d="M12 2v20M5 12l7-7 7 7"/></svg></span>
+      <h3>Carbon-neutral shipping</h3>
+      <p>Every order offset at no extra cost to you — always.</p>
+    </div>
+    <div class="promise-item">
+      <span class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg></span>
+      <h3>365-day returns</h3>
+      <p>Try it for a full year. Free returns in all 50 states.</p>
+    </div>
+    <div class="promise-item">
+      <span class="ico"><svg viewBox="0 0 24 24"><path d="M12 3c4 6 4 12 0 18M12 3c-4 6-4 12 0 18M3 12h18"/></svg></span>
+      <h3>Made responsibly</h3>
+      <p>Small-batch production with fair-wage partners in Porto.</p>
+    </div>
+    <div class="promise-item">
+      <span class="ico"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10"/></svg></span>
+      <h3>Transparent pricing</h3>
+      <p>Honest margins, always. See exactly what you're paying for.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Newsletter -->
+<section class="news">
+  <div class="container news-wrap">
+    <div>
+      <h3>Join the Verde letter.</h3>
+      <p>New drops, field notes, and 10% off your first order. No spam — ever.</p>
+    </div>
+    <form onsubmit="event.preventDefault();">
+      <input type="email" placeholder="Your email address" aria-label="Email" />
+      <button type="submit">Subscribe</button>
+    </form>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="container foot-grid">
+    <div class="foot-brand">
+      <a href="#" class="logo">Maison<sup>®</sup> Verde</a>
+      <p>Thoughtful everyday essentials — made from certified organic materials in small batches. Kind to your body, the planet, and the people who make them.</p>
+    </div>
+    <div class="foot-col">
+      <h4>Shop</h4>
+      <ul>
+        <li><a href="#">All products</a></li>
+        <li><a href="#">Underwear</a></li>
+        <li><a href="#">Reusables</a></li>
+        <li><a href="#">Accessories</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h4>About</h4>
+      <ul>
+        <li><a href="#">Our promise</a></li>
+        <li><a href="#">Materials</a></li>
+        <li><a href="#">Journal</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h4>Help</h4>
+      <ul>
+        <li><a href="#">Shipping</a></li>
+        <li><a href="#">Returns</a></li>
+        <li><a href="#">Size guide</a></li>
+        <li><a href="#">FAQ</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="container foot-bottom">
+    <span>© 2026 Maison Verde. All rights reserved.</span>
+    <span>Privacy · Terms · Accessibility</span>
+  </div>
+</footer>
+
+</body>
+</html>

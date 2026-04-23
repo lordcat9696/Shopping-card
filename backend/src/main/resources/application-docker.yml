@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/shop
+    username: shop
+    password: shoppass
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate    # Flyway quản schema; Hibernate chỉ validate entity khớp DB
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+logging:
+  level:
+    org.hibernate.SQL: info

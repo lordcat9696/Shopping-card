@@ -1,0 +1,43 @@
+spring:
+  profiles:
+    default: docker
+  jpa:
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: false
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: true    # nếu DB đã có schema cũ, coi như đã migrate tới baseline-version
+    baseline-version: 0          # V1 sẽ chạy trên DB đã baseline
+  mail:
+    host: ${MAIL_HOST:localhost}
+    port: ${MAIL_PORT:1025}
+    username: ${MAIL_USERNAME:}
+    password: ${MAIL_PASSWORD:}
+    properties:
+      mail:
+        smtp:
+          auth: ${MAIL_SMTP_AUTH:false}
+          starttls:
+            enable: ${MAIL_SMTP_STARTTLS:false}
+
+server:
+  port: 8080
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
+
+app:
+  auth:
+    jwt-secret: ${JWT_SECRET:dev-only-change-me-32-bytes-min-ABCDEFG}
+    jwt-ttl: PT1H   # 1 tiếng
+    google-client-id: ${GOOGLE_CLIENT_ID:539805784611-rn8h4kmfv23nms9c8dijfhfhhvcrma6k.apps.googleusercontent.com}
+  mail:
+    enabled: ${MAIL_ENABLED:true}    # false → log email thay vì gửi (dev default)
+    from: ${MAIL_FROM:Maison Verde <noreply@maisonverde.local>}
